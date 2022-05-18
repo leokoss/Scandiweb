@@ -1,0 +1,19 @@
+{
+  "data": [
+    { "sku": 1, "name": "disk1", "price": 1000, "productType": "dvd", "description": { "size": 500 }, "forDelete": false },
+    { "sku": 12, "name": "disk2", "price": 2000, "productType": "dvd", "description": { "size": 600 }, "forDelete": false },
+    { "sku": 3, "name": "disk3", "price": 20040, "productType": "dvd", "description": { "size": 600 }, "forDelete": false },
+    { "sku": 4, "name": "disk4", "price": 3000, "productType": "dvd", "description": { "size": 800 }, "forDelete": false },
+    { "sku": 5, "name": "disk5", "price": 1000, "productType": "dvd", "description": { "size": 600 }, "forDelete": false },
+    { "sku": 9, "name": "book1", "price": 1000, "productType": "book", "description": { "weight": 4 }, "forDelete": false },
+    { "sku": 10, "name": "book2", "price": 2000, "productType": "book", "description": { "weight": 3 }, "forDelete": false },
+    { "sku": 11, "name": "book3", "price": 20040, "productType": "book", "description": { "weight": 10 }, "forDelete": false },
+    { "sku": 2, "name": "book4", "price": 3000, "productType": "book", "description": { "weight": 3 }, "forDelete": false },
+    { "sku": 13, "name": "book5", "price": 1000, "productType": "book", "description": { "weight": 6 }, "forDelete": false },
+    { "sku": 14, "name": "book6", "price": 2000, "productType": "book", "description": { "weight": 5 }, "forDelete": false },
+    { "sku": 18, "name": "furniture1", "price": 20040, "productType": "furniture", "description": { "height": 250, "width": 100, "length": 300 }, "forDelete": false },
+    { "sku": 19, "name": "furniture2", "price": 3000, "productType": "furniture", "description": { "height": 250, "width": 100, "length": 300 }, "forDelete": false },
+    { "sku": 20, "name": "furniture3", "price": 1000, "productType": "furniture", "description": { "height": 250, "width": 100, "length": 300 }, "forDelete": false },
+    { "sku": 21, "name": "furniture4", "price": 2000, "productType": "furniture", "description": { "height": 250, "width": 100, "length": 300 }, "forDelete": false },
+    { "sku": 22, "name": "furniture5", "price": 20040, "productType": "furniture", "description": { "height": 250, "width": 100, "length": 300 }, "forDelete": false }
+  ]}
