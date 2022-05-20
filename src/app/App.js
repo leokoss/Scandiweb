@@ -1,4 +1,4 @@
-import '../css/App.css';
+import '../css/App.scss';
 import Footer from './layout/Footer';
 import Header from './layout/Header';
 import ProductList from './layout/ProductList';

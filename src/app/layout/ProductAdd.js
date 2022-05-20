@@ -85,7 +85,9 @@ const ProductAdd = (props) => {
 
         filledData.data.forEach(item => {
             if (item.sku === addData.sku) isNormal = "sku";
+            if (isNaN(addData.price)) isNormal = "price";
         })
+
 
         for (let i in data) {
             if (typeof (data[i]) === 'object') {
@@ -101,14 +103,23 @@ const ProductAdd = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (checkFunc(addData) === true) {
+        let check = checkFunc(addData);
+        if (check === true) {
             props.onAddItem(addData);
         } else {
-            if (checkFunc(addData) === "sku") {
+            if (check === "sku") {
                 alert('SKU you entered is already used!')
-            } else
-                alert("Fields can't be empty, please enter all data required!");
-            return;
+                return;
+            } else {
+                if (check === "price") {
+                    alert("Price can't be not a number");
+                    return;
+                }
+                else {
+                    alert("Fields can't be empty, please enter all data required!");
+                    return;
+                }
+            }
         }
         setAddData({
             sku: "",
