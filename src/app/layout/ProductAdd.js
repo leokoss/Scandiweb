@@ -1,10 +1,11 @@
 import { useState } from "react";
 
 const ProductAdd = (props) => {
+    const filledData = props;
     const [addData, setAddData] = useState({
         sku: "",
         name: "",
-        price: 0,
+        price: "",
         productType: "",
         description: {
             size: "",
@@ -81,6 +82,11 @@ const ProductAdd = (props) => {
 
     function checkFunc(data) {
         let isNormal = true;
+
+        filledData.data.forEach(item => {
+            if (item.sku === addData.sku) isNormal = "sku";
+        })
+
         for (let i in data) {
             if (typeof (data[i]) === 'object') {
                 checkFunc(data[i])
@@ -95,15 +101,31 @@ const ProductAdd = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (checkFunc(addData)) {
+        if (checkFunc(addData) === true) {
             props.onAddItem(addData);
-            console.log(addData);
         } else {
-            alert("Fields can't be empty, please enter all data required!");
+            if (checkFunc(addData) === "sku") {
+                alert('SKU you entered is already used!')
+            } else
+                alert("Fields can't be empty, please enter all data required!");
             return;
         }
-
+        setAddData({
+            sku: "",
+            name: "",
+            price: "",
+            productType: "",
+            description: {
+                size: "",
+                weight: "",
+                height: "",
+                width: "",
+                length: ""
+            },
+            forDelete: false
+        })
     }
+
 
     const setDynamicForm = (type) => {
         switch (type) {

@@ -3,70 +3,68 @@ import Footer from './layout/Footer';
 import Header from './layout/Header';
 import ProductList from './layout/ProductList';
 import ProductAdd from './layout/ProductAdd';
-import { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { requestProducts, updateProducts } from './services/ConnectionDb';
+import { useState, useEffect } from 'react';
+const App = () => {
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = ({ data: [] });
-  }
+  const [data, setData] = useState([]),
+    [upd, setUpd] = useState(true),
 
-
-  componentDidMount() {
-    fetch('http://localhost:3000/data')
-      .then(data => data.json())
-      .then(res => this.setState(() => {
-        return { data: res }
-
-      }));
-  };
-
-
-
-  onAddItem = async (item) => {
-    const addItem = item;
-    this.setState(({ data }) => {
-      const newArray = [...data, addItem];
-      return { data: newArray }
-    })
-
-
-  }
-
-  onToggleDelete = (sku) => {
-    const newArray = this.state.data.map(item => {
-      if (item.sku === sku) {
-        item.forDelete = !item.forDelete;
-        return item;
+    getResources = async () => {
+      if (!upd) return;
+      try {
+        const result = await requestProducts();
+        setData(result);
+        setUpd(false);
+        return true;
       }
-      else return item;
-    })
-    this.setState(() => { return { data: newArray } })
-  }
+      catch (e) {
+        alert('Products not found');
+        return false;
+      }
+    },
+    onAddItem = async (item) => {
+      const newArray = [...data, item];
+      await updateProducts(newArray);
+      setUpd(true);
+      if (getResources()) window.location.href = "/";
+    },
 
-  onDelete = () => {
-    const newArray = this.state.data.filter(item => !item.forDelete);
-    this.setState(() => { return { data: newArray } })
+    onToggleDelete = (sku) => {
+      const newArray = data.map(item => {
+        if (item.sku === sku) {
+          item.forDelete = !item.forDelete;
+          return item;
+        }
+        else return item;
+      })
+      setData(newArray)
+    },
 
+    onDelete = async () => {
+      const newArray = data.filter(item => !item.forDelete);
+      await updateProducts(newArray);
+      setUpd(true);
+    };
 
-  }
+  useEffect(() => {
+    getResources();
+  }, [upd]);
 
+  const visibleData = data.sort((a, b) => (a.sku > b.sku) ? 1 : -1);
 
+  return (
+    < div className="App" >
+      <Header onDelete={onDelete} />
+      <Routes>
+        <Route path="/" element={<ProductList data={visibleData} onToggleDelete={onToggleDelete} />} />
+        <Route path="/add-product" element={<ProductAdd onAddItem={onAddItem} data={data} />} />
+      </Routes>
+      <Footer />
+    </ div>
 
-  render() {
-    const visibleData = this.state.data.sort((a, b) => (a.sku > b.sku) ? 1 : -1)
-    return (
-      <div className="App">
-        <Header onDelete={this.onDelete} />
-        <Routes>
-          <Route path="/" element={<ProductList data={visibleData} onToggleDelete={this.onToggleDelete} />} />
-          <Route path="/add-product" element={<ProductAdd onAddItem={this.onAddItem} />} />
-        </Routes>
-        <Footer />
-      </div>
-
-    );
-  }
+  );
 }
+
 export default App;

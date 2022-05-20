@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 const Header = ({ onDelete }) => {
-    let pageT = "";
-    const [pageText, setPageText] = useState("");
+    let pageText = "";
+    let [pageT, setPageT] = useState("");
     const page = useLocation().pathname;
-    useEffect(() => setPageText(pageT), [pageT]);
+
     const btns = (page) => {
         if (page === "/") {
-            pageT = "List";
+            pageText = "List";
             return (
                 <div className="header__btns">
                     <Link to="/add-product"><button id="add" className="header__btn">ADD</button></Link>
@@ -15,7 +15,7 @@ const Header = ({ onDelete }) => {
                 </div>
             )
         } else {
-            pageT = "Add";
+            pageText = "Add";
             return (
                 <div className="header__btns">
                     <button id="save" type="submit" className="header__btn" form="product_form">Save</button>
@@ -24,14 +24,12 @@ const Header = ({ onDelete }) => {
             )
         }
     }
-
-
-
+    useEffect(() => setPageT(pageText), [page]);
     return (
         <header className="header">
             <div className="container">
                 <div className="top_container">
-                    <div className="header_box"><h1>Product {pageText}</h1></div>
+                    <div className="header_box"><h1>Product {pageT}</h1></div>
                     {btns(page)}
                 </div>
             </div>

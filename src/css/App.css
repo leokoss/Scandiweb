@@ -9,6 +9,12 @@
 .header_box{
     padding-left: 20px;
 }
+.header__btns{
+     min-width: 300px;
+     display: flex;
+     justify-content: space-between;
+
+}
 .header__btn{
     background:rgb(54, 52, 52);
     color: #fff;
@@ -20,6 +26,7 @@
     width: 1200px;
 }
 .top_container{
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
